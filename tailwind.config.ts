@@ -63,6 +63,20 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
+			backgroundImage: {
+				'hero-gradient': 'var(--gradient-hero)',
+				'card-gradient': 'var(--gradient-card)',
+				'accent-gradient': 'var(--gradient-accent)',
+			},
+			boxShadow: {
+				'cinema': 'var(--shadow-cinema)',
+				'card': 'var(--shadow-card)',
+				'glow': 'var(--shadow-glow)',
+			},
+			transitionTimingFunction: {
+				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+				'bounce': 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
