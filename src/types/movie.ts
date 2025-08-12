@@ -6,6 +6,8 @@ export interface Movie {
   rating: number;
   year: number;
   runtimeMinutes: number; // movie duration in minutes
+  language?: string;
+  platforms?: string[];
   description: string;
   mood: string[];
 }
