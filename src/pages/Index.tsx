@@ -3,6 +3,9 @@ import { Hero } from "@/components/Hero";
 import { MoodSelector } from "@/components/MoodSelector";
 import { MovieGrid } from "@/components/MovieGrid";
 import { movies, moods } from "@/data/movies";
+import { useToast } from "@/hooks/use-toast";
+import { useViewingHistory, recommendMovies } from "@/hooks/useViewingHistory";
+import { Movie } from "@/types/movie";
 
 const Index = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
@@ -44,6 +47,19 @@ const Index = () => {
     return "Featured Movies";
   };
 
+  const { history, addView } = useViewingHistory();
+  const { toast } = useToast();
+
+  const handleMovieView = (movie: Movie) => {
+    addView(movie.id);
+    toast({
+      title: "Added to your history",
+      description: `${movie.title} added to your viewing history.`,
+    });
+  };
+
+  const recommendations = useMemo(() => recommendMovies(movies, history), [history]);
+
   return (
     <div className="min-h-screen bg-hero-gradient">
       {/* Hero Section */}
@@ -62,8 +78,18 @@ const Index = () => {
         <MovieGrid 
           movies={filteredMovies}
           title={getTitle()}
+          onMovieClick={handleMovieView}
         />
       </div>
+      {recommendations.length > 0 && (
+        <section className="container mx-auto px-6 pb-12" aria-label="Recommended for you">
+          <MovieGrid 
+            movies={recommendations}
+            title="Recommended for you"
+            onMovieClick={handleMovieView}
+          />
+        </section>
+      )}
       
       {/* Footer */}
       <footer className="border-t border-border/20 mt-20">

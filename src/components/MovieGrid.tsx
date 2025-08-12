@@ -4,9 +4,10 @@ import { MovieCard } from "./MovieCard";
 interface MovieGridProps {
   movies: Movie[];
   title?: string;
+  onMovieClick?: (movie: Movie) => void;
 }
 
-export const MovieGrid = ({ movies, title }: MovieGridProps) => {
+export const MovieGrid = ({ movies, title, onMovieClick }: MovieGridProps) => {
   if (movies.length === 0) {
     return (
       <div className="text-center py-12">
@@ -22,7 +23,7 @@ export const MovieGrid = ({ movies, title }: MovieGridProps) => {
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+          <MovieCard key={movie.id} movie={movie} onView={onMovieClick} />
         ))}
       </div>
     </div>

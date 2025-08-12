@@ -3,11 +3,23 @@ import { Star } from "lucide-react";
 
 interface MovieCardProps {
   movie: Movie;
+  onView?: (movie: Movie) => void;
 }
 
-export const MovieCard = ({ movie }: MovieCardProps) => {
+export const MovieCard = ({ movie, onView }: MovieCardProps) => {
   return (
-    <div className="group relative bg-card-gradient rounded-lg overflow-hidden shadow-card hover:shadow-glow transition-all duration-300 hover:-translate-y-2">
+    <div
+      className="group relative bg-card-gradient rounded-lg overflow-hidden shadow-card hover:shadow-glow transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+      role="button"
+      tabIndex={0}
+      onClick={() => onView?.(movie)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onView?.(movie);
+        }
+      }}
+    >
       <div className="aspect-[2/3] overflow-hidden">
         <img
           src={movie.poster}
