@@ -48,13 +48,13 @@ export function Filters({ allGenres, allLanguages, allPlatforms, value, onChange
           <Label htmlFor="genre">Genre</Label>
           <Select
             value={value.genre ?? undefined}
-            onValueChange={(v) => onChange({ ...value, genre: v || null })}
+            onValueChange={(v) => onChange({ ...value, genre: v === "__clear__" ? null : v })}
           >
             <SelectTrigger id="genre" aria-label="Select genre">
               <SelectValue placeholder="All genres" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">All</SelectItem>
+            <SelectContent className="z-50">
+              <SelectItem value="__clear__">All</SelectItem>
               {allGenres.map((g) => (
                 <SelectItem key={g} value={g}>{g}</SelectItem>
               ))}
@@ -67,13 +67,13 @@ export function Filters({ allGenres, allLanguages, allPlatforms, value, onChange
           <Label htmlFor="language">Language</Label>
           <Select
             value={value.language ?? undefined}
-            onValueChange={(v) => onChange({ ...value, language: v || null })}
+            onValueChange={(v) => onChange({ ...value, language: v === "__clear__" ? null : v })}
           >
             <SelectTrigger id="language" aria-label="Select language">
               <SelectValue placeholder="All languages" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">All</SelectItem>
+            <SelectContent className="z-50">
+              <SelectItem value="__clear__">All</SelectItem>
               {allLanguages.map((l) => (
                 <SelectItem key={l} value={l}>{l}</SelectItem>
               ))}
