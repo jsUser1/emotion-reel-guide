@@ -19,6 +19,7 @@ export const movies: Movie[] = [
     genre: ["Drama", "Biography"],
     rating: 8.0,
     year: 2006,
+    runtimeMinutes: 117,
     description: "A struggling salesman takes custody of his son as he's poised to begin a life-changing professional career.",
     mood: ["inspiring", "sad", "happy"]
   },
@@ -29,6 +30,7 @@ export const movies: Movie[] = [
     genre: ["Sci-Fi", "Thriller"],
     rating: 8.8,
     year: 2010,
+    runtimeMinutes: 148,
     description: "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea.",
     mood: ["thrilling", "mysterious", "action"]
   },
@@ -39,6 +41,7 @@ export const movies: Movie[] = [
     genre: ["Musical", "Romance"],
     rating: 8.0,
     year: 2016,
+    runtimeMinutes: 128,
     description: "A jazz musician and an aspiring actress meet and fall in love in Los Angeles.",
     mood: ["romantic", "happy", "inspiring"]
   },
@@ -49,6 +52,7 @@ export const movies: Movie[] = [
     genre: ["Action", "Crime"],
     rating: 9.0,
     year: 2008,
+    runtimeMinutes: 152,
     description: "Batman faces the Joker, a criminal mastermind who wants to plunge Gotham City into anarchy.",
     mood: ["action", "thrilling", "mysterious"]
   },
@@ -59,6 +63,7 @@ export const movies: Movie[] = [
     genre: ["Comedy", "Drama"],
     rating: 8.1,
     year: 2014,
+    runtimeMinutes: 99,
     description: "The adventures of Gustave H, a legendary concierge at a famous European hotel.",
     mood: ["funny", "happy", "inspiring"]
   },
@@ -69,6 +74,7 @@ export const movies: Movie[] = [
     genre: ["Mystery", "Thriller"],
     rating: 8.1,
     year: 2014,
+    runtimeMinutes: 149,
     description: "A husband becomes the prime suspect when his wife disappears on their fifth wedding anniversary.",
     mood: ["thrilling", "mysterious", "sad"]
   },
@@ -79,6 +85,7 @@ export const movies: Movie[] = [
     genre: ["Romance", "Drama"],
     rating: 7.8,
     year: 2004,
+    runtimeMinutes: 123,
     description: "An elderly man reads to a woman with dementia the story of two young lovers.",
     mood: ["romantic", "sad", "inspiring"]
   },
@@ -89,6 +96,7 @@ export const movies: Movie[] = [
     genre: ["Comedy"],
     rating: 7.6,
     year: 2007,
+    runtimeMinutes: 113,
     description: "Two co-dependent high school seniors are forced to deal with separation anxiety.",
     mood: ["funny", "happy"]
   }

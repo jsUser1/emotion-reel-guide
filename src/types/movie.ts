@@ -5,6 +5,7 @@ export interface Movie {
   genre: string[];
   rating: number;
   year: number;
+  runtimeMinutes: number; // movie duration in minutes
   description: string;
   mood: string[];
 }

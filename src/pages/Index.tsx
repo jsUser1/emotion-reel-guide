@@ -6,6 +6,7 @@ import { movies, moods } from "@/data/movies";
 import { useToast } from "@/hooks/use-toast";
 import { useViewingHistory, recommendMovies } from "@/hooks/useViewingHistory";
 import { Movie } from "@/types/movie";
+import { parseMovieQuery } from "@/lib/search";
 
 const Index = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
@@ -14,19 +15,56 @@ const Index = () => {
   const filteredMovies = useMemo(() => {
     let filtered = movies;
 
-    // Filter by mood
+    // Filter by selected mood
     if (selectedMood) {
-      filtered = filtered.filter(movie => movie.mood.includes(selectedMood));
+      filtered = filtered.filter((movie) => movie.mood.includes(selectedMood));
     }
 
-    // Filter by search query
+    // Natural-language search parsing
     if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(movie => 
-        movie.title.toLowerCase().includes(query) ||
-        movie.genre.some(genre => genre.toLowerCase().includes(query)) ||
-        movie.description.toLowerCase().includes(query)
-      );
+      const parsed = parseMovieQuery(searchQuery);
+      const hasStructured =
+        parsed.genres.length > 0 ||
+        parsed.moods.length > 0 ||
+        parsed.minRating !== undefined ||
+        parsed.yearGte !== undefined ||
+        parsed.yearLte !== undefined ||
+        parsed.maxMinutes !== undefined ||
+        parsed.minMinutes !== undefined;
+
+      if (parsed.genres.length) {
+        const gset = new Set(parsed.genres.map((g) => g.toLowerCase()));
+        filtered = filtered.filter((movie) => movie.genre.some((genre) => gset.has(genre.toLowerCase())));
+      }
+      if (parsed.moods.length) {
+        const mset = new Set(parsed.moods);
+        filtered = filtered.filter((movie) => movie.mood.some((m) => mset.has(m)));
+      }
+      if (parsed.minRating !== undefined) {
+        filtered = filtered.filter((movie) => movie.rating >= (parsed.minRating as number));
+      }
+      if (parsed.yearGte !== undefined) {
+        filtered = filtered.filter((movie) => movie.year >= (parsed.yearGte as number));
+      }
+      if (parsed.yearLte !== undefined) {
+        filtered = filtered.filter((movie) => movie.year <= (parsed.yearLte as number));
+      }
+      if (parsed.maxMinutes !== undefined) {
+        filtered = filtered.filter((movie) => movie.runtimeMinutes <= (parsed.maxMinutes as number));
+      }
+      if (parsed.minMinutes !== undefined) {
+        filtered = filtered.filter((movie) => movie.runtimeMinutes >= (parsed.minMinutes as number));
+      }
+
+      // Fallback: if no structured filters matched, keep classic substring search
+      if (!hasStructured) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter((movie) =>
+          movie.title.toLowerCase().includes(q) ||
+          movie.genre.some((genre) => genre.toLowerCase().includes(q)) ||
+          movie.description.toLowerCase().includes(q)
+        );
+      }
     }
 
     return filtered;
